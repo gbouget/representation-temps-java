@@ -13,43 +13,76 @@
 			Le temps est une notion abstraite dont les propriétés et la définition même échappent à des certitudes absolues. En informatique, la représentation du temps est une problématique récurrente et dont la mise en oeuvre s'avère parfois approximative ou incomplète. Généralement, le passage d'une application ou du SI à une dimension internationale nécessite de se pencher plus en détails sur la manière de concevoir et d'implémenter le temps.
 			</p>
 			
-			<h2>De l'astronomie aux calendriers</h2>
-			<h3>Phénomènes astronomiques</h3>
 			<p>
-			Depuis les débuts de l'humanité, l'être humain remarque certaines régularités à différents endroits du globe. En France, le temps peut être ressenti à travers le cycle jour/nuit et les saisons. Ces phénomènes s'expliquent essentiellement par la rotation de la Terre sur elle-même avec une inclinaison par rapport à l'orbite ainsi que par la révolution de la Terre autour du Soleil.
+			Le langage Java, à travers la JDK, apporte de nombreuses classes qui facilitent et accélèrent le développement sans avoir besoin de réinventer la roue. Les classes ont été pensées en se basant sur d'autres travaux normatifs comme la <a href="https://datatracker.ietf.org/doc/html/rfc3339">RFC 3339</a> ou l'ISO 8601 (pourquoi un document normatif est-il payant ?) afin d'assurer une certaine interopérabilité entre les systèmes.
 			</p>
 			
 			<p>
-			Malgré la différence de taille entre le Soleil et la Terre d'un facteur 100, la distance est tellement élevée entres les deux astres que les rayons lumineux arrivent sur Terre quasiment parallèles. Dès lors, le Soleil éclaire exactement la moitié de la Terre alors que l'autre face ne l'est pas. La lumière visible au crépuscule est due à la diffusion par l'atmosphère terrestre. D'ailleurs, la couleur tire vers l'orange puis le rouge en fonction de la longueur d'atmosphère traversée par la lumière.
+			Avant d'entrer directement dans le vif du sujet, j'ai choisi de faire une légère digression vers l'astronomie pour rappeler ou sensibiliser aux problématiques sous-jacents à laquelles les informaticiens se sont confrontés lors des premiers travaux de formalisation. Pour les plus curieux, le web regorge de ressources sur les phénomènes physiques avec une approche beaucoup plus pédagogique que la synthèse rédigée dans ce document.
+			</p>
+			
+			<h2>Des phénomènes astronomiques au calendrier Grégorien</h2>
+			<h3>Origine des saisons et de la position apparente du Soleil</h3>
+			<p>
+			Le cerveau de l'être humain est plutôt	 performant pour remarquer les régularités. Dans un environnement, en France par exemple, le temps peut se ressentir par la variation de l'intensité lumineuse avec le cycle jour/nuit ou encore par la différence de température entre l'été et l'hiver. Ces phénomènes s'expliquent par :
+			<ul>
+				<li>la rotation de la Terre sur elle-même selon un axe incliné par rapport à l'orbite (obliquité) ;</li>
+				<li>la révolution de la Terre autour du Soleil ;</li>
+				<li>la variabilité de l'obliquité de la terre (précession des équinoxes).</li>
+			</ul>
 			</p>
 			
 			<p>
-			Bien que les rayons arrivent parallèlement à la Terre : la variation d'ensolleillement et de chaleur proviennent directement de l'inclinaison de la Terre. Par exemple, sur le schéma x, la quantité d'énergie reçue par les zones z1 et z2 sont identiques. Pourtant, comme la surface z1 est plus grande que la surface z2 alors z1 sera plus chaud que z2. Dans cette configuration, c'est l'été dans l'hémisphère sud et l'hiver dans l'hémisphère nord. Pour terminer, comme la Terre tourne autour du Soleil, les rayons lumineux arriveront vers le côté droit de la Terre sur le schéma et c'est l'inverse qui se produira : ce sera l'étét dans l'hémisphère nord et l'hiver dans la l'hémisphère sud.
+			Malgré la différence de taille entre le Soleil et la Terre d'un facteur 100, la distance est tellement élevée entre les deux astres que les rayons lumineux sont quasiment parallèles entre-eux lorsqu'ils arrivent sur Terre. C'est pourquoi le Soleil éclaire exactement la moitié de la Terre alors que l'autre face ne l'est pas. Au crépuscule, la lumière visible provient de la diffusion des rayons par l'atmosphère terrestre (composée de gaz). D'ailleurs, la couleur tire vers l'orange puis le rouge en fonction de la longueur d'atmosphère traversée par la lumière.
 			</p>
 			
-			<img src="images/revolution-terre-autour-soleil.PNG" class="img-fluid border" alt="Représentation de la distance entre la Terre et le Soleil">
-			<img src="images/distance-reelle-soleil-terre.PNG" class="img-fluid border" alt="Représentation de la distance entre la Terre et le Soleil">
-			<img src="images/rayonnement-solaire-non-echelle.PNG" class="img-fluid border" alt="Rayonnement solaire">
-			<img src="images/rayonnement-solaire-saison.PNG" class="img-fluid border" alt="Représentation de la distance entre la Terre et le Soleil">
+			<p>
+			Comme la Terre tourne sur elle-même en 23 heures et 56 minutes envron (jour sidéral), la face tournée vers le Soleil reçoit une <em>pluie</em> de lumière, il fait alors jour. A contrario, l'autre face reçoit très peu de lumières si ce n'est la réflexion des rayons du Soleil à travers la Lune ou encore la très faible intensité des étoiles lointaines (également présentes en plein jour mais totalement occultés par le Soleil) : c'est la nuit.
+			</p>
 			
-			<h2>Calendriers solaires</h2>
+			<p>
+			<!-- TODO Inclinaison Terre : particularité pôle nord / particularité : jour sidéral 23:56:04 vs jour solaire moyen : 24:00:00 -->
+			</p>
+			
+			<p>
+			La variation d'ensoleillement et de chaleur proviennent directement de l'inclinaison de la Terre. Par exemple, sur le schéma x, la quantité d'énergie reçue par les zones z1 et z2 sont identiques. Pourtant, comme la surface z1 est plus grande que la surface z2 alors z1 sera plus chaud que z2. Dans cette configuration, c'est l'été dans l'hémisphère sud et l'hiver dans l'hémisphère nord. Pour terminer, comme la Terre tourne autour du Soleil, les rayons lumineux arriveront vers le côté droit de la Terre sur le schéma et c'est l'inverse qui se produira : ce sera l'étét dans l'hémisphère nord et l'hiver dans la l'hémisphère sud.
+			</p>
+			<!-- Insérer schéma x -->
+		
 			<h3>Calendier Julien</h3>
 			<p>
-			Introduit par Jules César, le calendrier Julien est basé sur la position apparente du Soleil et fixe l'année à 365,25 jours. Pour simplifier la partie fractionnaire, le système utilise une base de 365 jours pendant trois ans puis ajoute un jour supplémentaire la quatrième année, dite bissextile : (365*3 + 366)/4 = 365,25 jours. Inspiré du calendrier romain républicain, les jours sont également répartis en douze mois.
+			Introduit par Jules César, le calendrier Julien est basé sur la position apparente du Soleil et fixe l'année à 365,25 jours. Pour simplifier la partie fractionnaire, le système utilise une base de 365 jours pendant trois ans puis ajoute un jour supplémentaire la quatrième année, dite bissextile : (365*3 + 366)/4 = 365,25 jours. Inspiré du calendrier romain républicain, les jours sont inégalement répartis en douze mois.
 			</p>
 			
 			<p>
-			Malgré la réforme, un décalage subsiste entre l'équinoxe de printemps calendaire et l'équinoxe réelle en raison de la précession des équinoxes. Ainsi, au 15e siècle, l'équinoxe de printemps se situait vers le 10 mars. En 2021, l'équinoxe de printemps serait tombée le 7 mars. Comme l'équinoxe de printemps est un point de repère pour la date de Pacques, le pape Grégoire XIII a initié l'établissement d'un nouveau calendrier pour corriger la lente dérive.
+			Malgré la réforme, un décalage subsiste entre l'équinoxe de printemps calendaire et l'équinoxe réelle en raison de la précession des équinoxes (variation de l'inclinaison de la Terre). Ainsi, au 15e siècle, l'équinoxe de printemps se situait vers le 10 mars. En 2021, l'équinoxe de printemps tombe le 7 mars. Comme l'équinoxe de printemps est un point de repère pour la date de Pâques, le pape Grégoire XIII a initié l'établissement d'un nouveau calendrier pour corriger la lente dérive.
 			</p>
 			
 			
 			<h3>Calendier Grégorien</h3>
 			<p>
-			Basé sur le calendrier Julien, le calendrier Grégorien modifie la règle de calcul des années bissextiles pour s'approcher davantage de l'année tropique. La nouvelle formule retire trois jours tous les 400 ans : une année est bissextile si elle mutiple de 400, ou bien, mutiple de 4 mais pas de 100. Dès lors, une année vaut en moyenne : 365 + 1*(1/4-1/100+1/400) = 365,2425 jours. Dorénavant, le retard du calendrier Grégorien sur l'année tropique moyenne est de quelques secondes par an. Pour terminer, l'année tropique diminue progressivement au fil des ans.	
+			Basé sur le calendrier Julien, le calendrier Grégorien modifie la règle de calcul des années bissextiles pour s'approcher davantage de l'année tropique. La nouvelle formule retire trois jours tous les 400 ans : une année est bissextile si elle mutiple de 400, ou bien, mutiple de 4 mais pas de 100. Dès lors, une année vaut en moyenne : 365 + 1*(1/4-1/100+1/400) = 365,2425 jours. Dorénavant, le retard du calendrier Grégorien sur l'année tropique moyenne est de quelques secondes par an mais il devrait s'accentuer au fil des ans car la vitesse de la Terre diminue.
 			</p>
 			
 			<h2>Du temps solaire moyen au temps universel coordonné</h2>
 			
+			
+			
+			<h2>Lecture commentée du code source</h2>
+			<h3>Calendar</h3>
+			<pre>
+			Classe abstraite :
+				Obligatoire d'étendre la classe pour implémenter les méthodes abstraites.
+				JDK fournit une classe croncrète : GregorianCalendar
+			Instanciation d'un calendrier nécessite deux variables :
+				- attribut zone, de type java.time.TimeZone
+				- 
+			getTimeInMillis();
+			complete();
+				|- updateTime()
+					|- <abstract> computeTime()
+			
+			</pre>
 			
 			
 		</article>
