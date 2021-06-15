@@ -14,17 +14,17 @@
 			</p>
 			
 			<p>
-			Le langage Java, à travers la JDK, apporte de nombreuses classes qui facilitent et accélèrent le développement sans avoir besoin de réinventer la roue. Les classes ont été pensées en se basant sur d'autres travaux normatifs comme la <a href="https://datatracker.ietf.org/doc/html/rfc3339">RFC 3339</a> ou l'ISO 8601 (pourquoi un document normatif est-il payant ?) afin d'assurer une certaine interopérabilité entre les systèmes.
+			Le langage Java, à travers la JDK, apporte de nombreuses classes qui facilitent et accélèrent le développement sans avoir besoin de réinventer la roue. Les classes ont été pensées en se basant sur d'autres travaux normatifs comme la <a href="https://datatracker.ietf.org/doc/html/rfc3339">RFC 3339</a> ou l'ISO 8601 afin d'assurer une certaine interopérabilité entre les systèmes.
 			</p>
 			
 			<p>
-			Avant d'entrer directement dans le vif du sujet, j'ai choisi de faire une légère digression vers l'astronomie pour rappeler ou sensibiliser aux problématiques sous-jacents à laquelles les informaticiens se sont confrontés lors des premiers travaux de formalisation. Pour les plus curieux, le web regorge de ressources sur les phénomènes physiques avec une approche beaucoup plus pédagogique que la synthèse rédigée dans ce document.
+			Avant d'entrer directement dans le vif du sujet, j'ai choisi de faire une légère digression vers l'astronomie pour rappeler ou sensibiliser aux problématiques sous-jacents auxquelles les informaticiens se sont confrontés lors des premiers travaux de formalisation. Pour les plus curieux, le web regorge de ressources sur les phénomènes physiques avec une approche beaucoup plus pédagogique que la synthèse rédigée dans ce document.
 			</p>
 			
 			<h2>Des phénomènes astronomiques au calendrier Grégorien</h2>
 			<h3>Origine des saisons et de la position apparente du Soleil</h3>
 			<p>
-			Le cerveau de l'être humain est plutôt	 performant pour remarquer les régularités. Dans un environnement, en France par exemple, le temps peut se ressentir par la variation de l'intensité lumineuse avec le cycle jour/nuit ou encore par la différence de température entre l'été et l'hiver. Ces phénomènes s'expliquent par :
+			Une première approche du temps peut être sous l'angle biologique : grâce à ses sens, l'être humain perçoit les variations de luminosité entre le jour et la nuit ou encore la différence de température d'un jour à l'auttre. D'ailleurs, l'être humain va progressivement reconnaitre des régularités dans la survenance de ces phénomènes climatiques : ce sont les saisons. Avec les débuts de l'agriculture, l'ensoleillement, l'humidité et la température deviennennt des critères déterminants dans la productivité. En outre, la vision humaine diurne est beaucoup plus efficace que la vision nocturne. Dès lors, l'établissement d'un calendrier rythmé sur les mouvements du Soleil est souvent le plus en adéquation avec les activités humaines.
 			<ul>
 				<li>la rotation de la Terre sur elle-même selon un axe incliné par rapport à l'orbite (obliquité) ;</li>
 				<li>la révolution de la Terre autour du Soleil ;</li>
@@ -69,6 +69,35 @@
 			
 			
 			<h2>Lecture commentée du code source</h2>
+			<pre>
+			TemporalAccessor <i>
+			  |- Temporal <i>
+			    |- LocalDate
+			    |- LocalTime
+			    |- LocalDateTime
+				|- Instant
+			</pre>
+			
+			<h3>java.util.Date</h3>
+			<p>
+			Issue d'une conception incomplète dans la JDK 1.0 et soucieuse de la compabilité ascendante, la majorité des méthodes de la classe sont désormais déprécisées et déconseillées dans un contexte international. Aujourd'hui, l'usage de la classe Date ressemble davantage à la classe Instant plutôt qu'à la représentation de dates complètes à l'instar de GregorianCalendar.	
+			</p>
+			<p>
+			Grâce à l'appel de la fonction intrinsèque System.currentTimeMillis(), la classe java.util.Date() peut récupérée des <em>instants</em> sur le système d'exploitation. Par exemple, l'implémentation Windows est GetSystemTimeAsFileTime.
+			</p>
+			https://www.slideshare.net/RednaxelaFX/green-teajug-hotspotintrinsics02232013
+			
+			<pre>
+			new Date()
+			  |- new Date(System.currentTimeMillis())
+			    |- jlong os::javaTimeMillis() (https://github.com/openjdk/jdk/blob/master/src/hotspot/os/windows/os_windows.cpp)
+				  |- GetSystemTimeAsFileTime (cpp, api Windows 32)
+				   |- Temps	système (comment ça marche au niveau OS/matériel?)
+			</pre>
+			
+			<h3>java.time.Instant</h3>
+			
+			
 			<h3>Calendar</h3>
 			<pre>
 			Classe abstraite :
